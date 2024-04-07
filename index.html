@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <!-- Primary Meta Tags -->
+  <title>Weighted Random Chooser V1</title>
+  <meta name="title" content="Weighted Random Picker & Chooser" />
+  <meta name="description"
+    content="Make a list, weight your options, and let the computer decide. Select three in numeric order from first to third." />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rickybrowne.com/chooser/" />
+  <meta property="og:title" content="Weighted Random Chooser V1" />
+  <meta property="og:description"
+    content="Make a list, weight your options, and let the computer decide. Select three in numeric order from first to third." />
+  <meta property="og:image" content="fb.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://rickybrowne.com/chooser/" />
+  <meta property="twitter:title" content="Weighted Random Chooser V1" />
+  <meta property="twitter:description"
+    content="Make a list, weight your options, and let the computer decide. Select three in numeric order from first to third." />
+  <meta property="twitter:image" content="fb.png" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <div id="gradient">
+
+
+    <div id="c1" class="container">
+
+      <div id="nameoflist"> <img src="chooser.png" width="128px" alt="Weighted Random Picker & Chooser"><br />
+        <h1 id="daName">Weighted Random Chooser & Chooser</h1>
+      </div>
+      <div id="displayDiv" class="half hidden">
+
+      </div>
+      <div id="ListofLists" class="half">
+
+      </div>
+      <div id="buttonslot" class="half">
+        <button id="newL" onclick="FindListSpace()">New List</button>
+        <button id="helpn" onclick="showHelp()">Instructions</button>
+        <button id="tempo" onclick="editTemplate()">Edit Template</button>
+      </div>
+      <div id="c5" class="half"><a href="https://rickybrowne.com/furlongstreetlabs.html" id="link">Furlong Street
+          Labs</a></div>
+
+    </div>
+
+    <div id="c2" class="container">
+      <div id="editableTitle" contenteditable="plaintext-only" class="half"></div>
+      <div id="editableDiv" contenteditable="plaintext-only" class="half"></div>
+
+
+
+
+      <div id="but" class="half">
+        <button id="close1" onclick="runner()">Run</button>
+        <button id="close2" onclick="back2front()">Close</button>
+        <button id="close1" onclick="deleteList()">Delete List</button>
+        <button id="tempon" onclick="addTemplate()">Add Template</button>
+      </div>
+      <div id="c5" class="half"><a href="https://rickybrowne.com/furlongstreetlabs.html" id="link">Furlong Street
+          Labs</a></div>
+
+    </div>
+
+    <div id="c3" class="container">
+
+      <div id="odiv3" class="half">
+        Seperate choices by putting them on a seperate line.
+        You can add one or more '+' symbols after choices
+        you are leaning towards and that will add weight to that choice.
+        <br />
+        <b>Example:<br />
+          Bananas++<br />
+          Stawberries+<br />
+          Watermelon++++++++++<br />
+          Grapes<br /></b>
+      </div>
+      <div id="odiv7" class="half">
+        <button id="close3" onclick="back2front()">Close</button>
+      </div>
+      <div id="c5" class="half"><a href="https://rickybrowne.com/furlongstreetlabs.html" id="link">Furlong Street
+          Labs</a></div>
+    </div>
+
+    <div id="c4" class="container">
+      <div id="editableTemplate" contenteditable="plaintext-only" class="half">
+      </div>
+      <div id="odiv5" class="half">
+
+        <button id="close4" onclick="back2front()">Close</button>
+      </div>
+      <div id="c5" class="half"><a href="https://rickybrowne.com/furlongstreetlabs.html" id="link">Furlong Street
+          Labs</a></div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <style>
+    button {
+      background-color: transparent;
+      color: white;
+      border: 1px solid white;
+      padding: 5px 10px;
+      /* Adjust padding as needed */
+      text-decoration: none;
+      /* Remove underline for links */
+      cursor: pointer
+    }
+
+    #nameoflist {
+      text-align: center;
+
+    }
+
+    ul {
+      list-style-type: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    li {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+      text-indent: 0 !important;
+
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      /* Optional: Add underline on hover if desired */
+    }
+
+    a:visited {
+      color: white;
+    }
+
+    .container {
+
+      text-align: left;
+      width: 500px;
+
+    }
+
+    .half {
+
+      align-self: center;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      margin: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border: 1px solid rgb(255, 255, 255);
+    }
+
+
+
+    .Runs {
+      float: right;
+      cursor: pointer;
+    }
+
+
+    .hidden {
+      display: none;
+    }
+
+
+
+    body {
+
+
+      background-color: #000000;
+      padding: 0px;
+      margin: 0px;
+      font-family: 'Roboto', sans-serif;
+      color: aliceblue;
+      font-size: 16px;
+    }
+
+
+
+    #gradient {
+      width: 100%;
+      min-height: 100vh;
+      padding: 0px;
+      margin: 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+
+
+
+
+  <script>
+    var currentList;
+
+    document.getElementById("c2").classList.add("hidden");
+    document.getElementById("c3").classList.add("hidden");
+    document.getElementById("c4").classList.add("hidden");
+    showList();
+
+    function FindListSpace() {
+      let listNo = 1;
+      while (listNo <= 30) {
+        const taskKey = 'ritem' + listNo;
+        const taskValue = localStorage.getItem(taskKey);
+        if (taskValue == null || taskValue === '') {
+          // Empty or missing localStorage item found
+          const NewItemNo = listNo;
+          createNewList(NewItemNo);
+          break;
+        } else {
+          // Non-empty localStorage item found, continue searching
+          listNo++;
+        }
+      }
+    }
+
+    function createNewList(ListNum) {
+      var storeName = 'ritem' + ListNum;
+      var storeList = 'listem' + ListNum;
+      let listname = prompt("Please enter the name of your list:");
+      if (listname === "") {
+        listname = "List " + ListNum;
+      }
+      var empty1 = ""
+      localStorage.setItem(storeName, listname);
+      localStorage.setItem(storeList, empty1);
+      editableDiv.innerHTML = empty1;
+      editableTitle.innerHTML = listname;
+      currentList = ListNum
+      document.getElementById("c1").classList.add("hidden");
+      document.getElementById("c3").classList.add("hidden");
+      document.getElementById("c4").classList.add("hidden");
+      document.getElementById("c2").classList.remove("hidden");
+      showList();
+    }
+
+    function deleteList() {
+      DelNum = currentList;
+      var storeName = 'ritem' + DelNum;
+      var storeList = 'listem' + DelNum;
+      localStorage.setItem(storeName, "");
+      localStorage.setItem(storeList, "");
+      editableDiv.innerHTML = "";
+      editableTitle.innerHTML = "";
+      currentList = NaN;
+      document.getElementById("c1").classList.remove("hidden");
+      document.getElementById("c4").classList.add("hidden");
+      document.getElementById("c2").classList.add("hidden");
+      document.getElementById("c3").classList.add("hidden");
+      showList();
+    }
+
+
+
+
+
+    function showList() {
+
+      const listContainer = document.getElementById('ListofLists');
+      const da = document.getElementById('daName');
+      const ul = document.createElement('ul');
+      da.innerHTML = "Weighted Random Chooser V1";
+      document.getElementById("displayDiv").classList.add("hidden");
+      listContainer.innerHTML = "";
+      for (let i = 1; i <= 30; i++) {
+        const task = localStorage.getItem('ritem' + i);
+        if (task) {
+          const listItem = document.createElement('li');
+          listItem.innerText = task + '   ';
+
+          const doneSpan = document.createElement('span');
+          doneSpan.classList.add('Run' + i);
+          doneSpan.classList.add('Runs');
+          doneSpan.innerText = ' Run ';
+          doneSpan.style.textDecoration = 'underline';
+          doneSpan.addEventListener('click', function () {
+            frun(i);
+          });
+          listItem.appendChild(doneSpan);
+
+          const spSpan = document.createElement('span');
+          spSpan.classList.add('Runs');
+          spSpan.innerText = '    ~~~   ';
+          listItem.appendChild(spSpan);
+
+          const moreSpan = document.createElement('span');
+          moreSpan.classList.add('Edit' + i);
+          moreSpan.classList.add('Runs');
+          moreSpan.innerText = ' Edit ';
+          moreSpan.style.textDecoration = 'underline';
+          moreSpan.addEventListener('click', function () {
+            fedit(i);
+          });
+          listItem.appendChild(moreSpan);
+
+          ul.appendChild(listItem);
+        }
+      }
+
+      listContainer.appendChild(ul);
+    }
+
+
+
+    function showHelp() {
+
+      const ul = document.createElement('ul');
+
+      document.getElementById("c3").classList.remove("hidden");
+      document.getElementById("c2").classList.add("hidden");
+      document.getElementById("c1").classList.add("hidden");
+      document.getElementById("c4").classList.add("hidden");
+    }
+
+    function back2front() {
+      document.getElementById("c1").classList.remove("hidden");
+      document.getElementById("c2").classList.add("hidden");
+      document.getElementById("c3").classList.add("hidden");
+      document.getElementById("c4").classList.add("hidden");
+      showList();
+
+    }
+
+    function fedit(gog) {
+      var gogs = gog;
+      showList();
+      editList(gogs);
+    }
+
+
+    function editList(eNum) {
+      currentList = eNum;
+      var storeName = 'ritem' + eNum;
+      var storeList = 'listem' + eNum;
+      var savedContent = localStorage.getItem(storeName);
+
+      editableTitle.innerHTML = savedContent;
+      var savedMontent = localStorage.getItem(storeList);
+      editableDiv.innerHTML = savedMontent;
+      document.getElementById("c2").classList.remove("hidden");
+      document.getElementById("c1").classList.add("hidden");
+      document.getElementById("c3").classList.add("hidden");
+      document.getElementById("c4").classList.add("hidden");
+
+    }
+
+    function editTemplate() {
+      document.getElementById("c4").classList.remove("hidden");
+      document.getElementById("c1").classList.add("hidden");
+      document.getElementById("c3").classList.add("hidden");
+      document.getElementById("c2").classList.add("hidden");
+
+
+    }
+
+    function addTemplate() {
+      var tempist = editableTemplate.innerHTML;
+      var inFrame = currentList;
+      localStorage.setItem('listem' + inFrame, tempist);
+      editableDiv.innerHTML = tempist;
+    }
+
+
+    const Valuen = localStorage.getItem("Template");
+    if (Valuen == null || Valuen === '') {
+      var savedC = "Watermelons+\nRockmelons\nStrawberries\nBlueberries\nBananas\nTurtles++"
+      localStorage.setItem("Template", savedC);
+      editableTemplate.innerHTML = savedC;
+    } else {
+      var savedContent = localStorage.getItem("Template");
+      editableTemplate.innerHTML = savedContent;
+    }
+
+
+
+
+    var savedContent = localStorage.getItem("Template");
+    editableTemplate.innerHTML = savedContent;
+
+    // save the text inside the div to localStorage when the content changes
+    editableDiv.addEventListener("input", function () {
+      var inFrame = currentList;
+      localStorage.setItem('listem' + inFrame, editableDiv.innerHTML);
+    });
+
+    editableTitle.addEventListener("input", function () {
+      var inTitle = currentList;
+      localStorage.setItem('ritem' + inTitle, editableTitle.innerHTML);
+    });
+
+    // save the text inside the div to localStorage when the content changes
+    editableTemplate.addEventListener("input", function () {
+      var inFrame = currentList;
+      localStorage.setItem('Template', editableTemplate.innerHTML);
+    });
+
+
+
+
+
+    function runner() {
+      var runner1 = currentList;
+      document.getElementById("c1").classList.remove("hidden");
+      document.getElementById("c2").classList.add("hidden");
+      document.getElementById("c3").classList.add("hidden");
+      document.getElementById("c4").classList.add("hidden");
+      RunList(runner1);
+    }
+
+    function frun(gogo) {
+      var gogos = gogo;
+      showList();
+      RunList(gogos);
+
+    }
+
+    function RunList(Lnum) { //change this function
+      var eNum = Lnum
+
+      var storeName = 'ritem' + eNum;
+      var savedContent = localStorage.getItem(storeName);
+      const da = document.getElementById('daName');
+      document.getElementById("displayDiv").classList.remove("hidden");
+
+      da.innerHTML = savedContent;
+      var storeList = 'listem' + eNum;
+      var savedMontent = localStorage.getItem(storeList);
+      editableDiv.innerHTML = savedMontent;
+      var stringsArray = [];
+      var text = document.getElementById("editableDiv").innerText.split("\n");
+      text.forEach(function (t) {
+        if (t.trim() !== "") {
+          var numDuplicates = (t.match(/\+/g) || []).length;
+          for (var i = 0; i <= numDuplicates; i++) {
+            stringsArray.push(t.replace(/\+/g, "").trim());
+          }
+        }
+      });
+      var displayArray = [];
+      for (var i = 0; i < 3; i++) {
+        var selectedString = stringsArray[Math.floor(Math.random() * stringsArray.length)];
+        displayArray.push(selectedString);
+        stringsArray = stringsArray.filter(function (s) {
+          return s !== selectedString;
+        });
+      }
+      document.getElementById("displayDiv").innerHTML = displayArray.map(function (d, i) {
+        return (i + 1) + ". " + d + "<br>";
+      }).join("");
+    };
+
+    var colors = new Array(
+      [62, 35, 255],
+      [60, 255, 60],
+      [255, 35, 98],
+      [45, 175, 230],
+      [255, 0, 255],
+      [255, 128, 0]);
+
+    var step = 0;
+    //color table indices for: 
+    // current color left
+    // next color left
+    // current color right
+    // next color right
+    var colorIndices = [0, 1, 2, 3];
+
+    //transition speed
+    var gradientSpeed = 0.002;
+
+    function updateGradient() {
+
+      if ($ === undefined) return;
+
+      var c0_0 = colors[colorIndices[0]];
+      var c0_1 = colors[colorIndices[1]];
+      var c1_0 = colors[colorIndices[2]];
+      var c1_1 = colors[colorIndices[3]];
+
+      var istep = 1 - step;
+      var r1 = Math.round(istep * c0_0[0] + step * c0_1[0]);
+      var g1 = Math.round(istep * c0_0[1] + step * c0_1[1]);
+      var b1 = Math.round(istep * c0_0[2] + step * c0_1[2]);
+      var color1 = "rgb(" + r1 + "," + g1 + "," + b1 + ")";
+
+      var r2 = Math.round(istep * c1_0[0] + step * c1_1[0]);
+      var g2 = Math.round(istep * c1_0[1] + step * c1_1[1]);
+      var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
+      var color2 = "rgb(" + r2 + "," + g2 + "," + b2 + ")";
+
+      $('#gradient').css({
+        background: "-webkit-gradient(linear, left top, right top, from(" + color1 + "), to(" + color2 + "))"
+      }).css({
+        background: "-moz-linear-gradient(left, " + color1 + " 0%, " + color2 + " 100%)"
+      });
+
+      step += gradientSpeed;
+      if (step >= 1) {
+        step %= 1;
+        colorIndices[0] = colorIndices[1];
+        colorIndices[2] = colorIndices[3];
+
+        //pick two new target color indices
+        //do not pick the same as the current one
+        colorIndices[1] = (colorIndices[1] + Math.floor(1 + Math.random() * (colors.length - 1))) % colors.length;
+        colorIndices[3] = (colorIndices[3] + Math.floor(1 + Math.random() * (colors.length - 1))) % colors.length;
+
+      }
+    }
+
+    setInterval(updateGradient, 10);
+  </script>
+
+
+
+</body>
+
+</html>
